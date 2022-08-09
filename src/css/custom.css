@@ -6,25 +6,65 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-color-primary: #2563EB;
+  --ifm-color-primary-dark: #1e56cf;
+  --ifm-color-primary-darker: #16377e;
+  --ifm-color-primary-darkest: #0f265a;
+  --ifm-color-primary-light: #F472B6;
+  --ifm-color-primary-lighter: #ed94c2;
+  --ifm-color-primary-lightest: #efb4d2;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+   --ifm-color-primary: #2563EB;
+  --ifm-color-primary-dark: #1e56cf;
+  --ifm-color-primary-darker: #16377e;
+  --ifm-color-primary-darkest: #0f265a;
+  --ifm-color-primary-light: #F472B6;
+  --ifm-color-primary-lighter: #ed94c2;
+  --ifm-color-primary-lightest: #efb4d2;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+:root {
+  --ifm-font-family-base: 'Open Sans';
+  --ifm-heading-font-family: 'Poppins';
+  --ifm-link-color:#F472B6;
+  --ifm-color-success-dark: #009400;
+    --ifm-color-success-darker: #008b00;
+    --ifm-color-success-darkest: #007300;
+    --ifm-color-success-light: #26b226;
+    --ifm-color-success-lighter: #4dbf4d;
+    --ifm-color-success-lightest: #80d280;
+    --ifm-color-success-contrast-background: #e6f6e6;
+    --ifm-color-success-contrast-foreground: #003100;
+    --ifm-color-info-dark: #4cb3d4;
+    --ifm-color-info-darker: #47a9c9;
+    --ifm-color-info-darkest: #3b8ba5;
+    --ifm-color-info-light: #6ecfef;
+    --ifm-color-info-lighter: #87d8f2;
+    --ifm-color-info-lightest: #aae3f6;
+    --ifm-color-info-contrast-background: #eef9fd;
+    --ifm-color-info-contrast-foreground: #193c47;
+    --ifm-color-warning-dark: #e6a700;
+    --ifm-color-warning-darker: #d99e00;
+    --ifm-color-warning-darkest: #b38200;
+    --ifm-color-warning-light: #ffc426;
+    --ifm-color-warning-lighter: #ffcf4d;
+    --ifm-color-warning-lightest: #ffdd80;
+    --ifm-color-warning-contrast-background: #fff8e6;
+    --ifm-color-warning-contrast-foreground: #4d3800;
+    --ifm-color-danger-dark: #F472B6;
+    --ifm-color-danger-darker: #cb3784;
+    --ifm-color-danger-darkest: #8e3362;
+    --ifm-color-danger-light: #fb565b;
+    --ifm-color-danger-lighter: #fb7478;
+    --ifm-color-danger-lightest: #fd9c9f;
+    --ifm-color-danger-contrast-background: #ffebec;
+    --ifm-color-danger-contrast-foreground: #4b1113;
 }
