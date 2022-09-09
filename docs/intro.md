@@ -2,6 +2,8 @@
 sidebar_position: 9
 ---
 
+![API Hero logo](/img/logo.svg)
+
 # Tutorial Intro
 
 Let's discover **Docusaurus in less than 5 minutes**.
