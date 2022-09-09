@@ -7,7 +7,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "API Hero Docs",
-  tagline: "Learn stuff",
+  tagline: "Connect to APIs in seconds and scale without servers",
   url: "https://docs.apihero.run",
   baseUrl: "/",
   onBrokenLinks: "throw",
@@ -33,19 +33,14 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          routeBasePath: "/",
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
             "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
-        },
+        blog: false,
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
@@ -57,19 +52,13 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "API Hero Docs",
+        title: "API Hero",
         logo: {
-          alt: "API Hero Docs",
+          alt: "API Hero",
           src: "img/logo.svg",
+          href: "https://app.apihero.run",
         },
         items: [
-          {
-            type: "doc",
-            docId: "introduction",
-            position: "left",
-            label: "Documentation",
-          },
-
           {
             href: "https://github.com/jsonhero-io/api-hero",
             label: "GitHub",
@@ -84,8 +73,8 @@ const config = {
             title: "Docs",
             items: [
               {
-                label: "Tutorial",
-                to: "/docs/intro",
+                label: "Introduction",
+                to: "/",
               },
             ],
           },

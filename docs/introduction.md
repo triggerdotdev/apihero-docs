@@ -1,5 +1,6 @@
 ---
-sidebar_label: 'Introduction'
+slug: /
+sidebar_label: "Introduction"
 sidebar_position: 1
 ---
 

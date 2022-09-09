@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'Create account'
+sidebar_label: "Create account"
 sidebar_position: 1
 ---
 
