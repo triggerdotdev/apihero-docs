@@ -15,5 +15,70 @@ import { YouTubeEmbed } from "@site/src/components/YouTubeEmbed";
 # What is API Hero?
 
 <YouTubeEmbed embed="jmG41RSeGRU" />
+This video shows you to how use API Hero and what it does.{" "}
 
-This is text
+---
+
+API Hero allows you to connect to 3rd party APIs in seconds, directly from your frontend.
+
+- Authentication information isn't exposed to users
+- Caching can be flicked on with a switch (and the cache time set)
+- You can view logs of every API call to track down issues
+
+# Super quick start
+
+### 1. Run the API Hero CLI
+
+Run this in your project folder
+
+```sh
+npx apihero add GitHub
+```
+
+### 2. Follow the instructions
+
+It should guide you to:
+
+1. Login to API Hero (creating an account if you don't have one)
+2. Select the API you want to use
+3. Create an API Hero project
+
+It will install the required packages so you can start coding.
+
+### 3. Use the API
+
+```ts
+//used to create a React hook
+import { createEndpoint } from "@apihero/react";
+
+//the api endpoint group you want to use, in this case from the GitHub integration from API Hero.
+//usually I just let VSCode import everything for me
+import { repos } from "@apihero/github";
+
+const useGetRepo = createEndpoint(repos.getRepo);
+
+export function StarCount({ owner, repo }: { owner: string; repo: string }) {
+  //use the API Hero hook you created, passing in anything it expects
+  const { data, status, error } = useGetRepo({ owner, repo });
+
+  return (
+    <div>
+      {status === "loading" ? (
+        <p>Loading…</p>
+      ) : status === "error" ? (
+        <p>🫤 {error.message}.</p>
+      ) : (
+        <p>{data.stargazers_count} stars</p>
+      )}
+    </div>
+  );
+}
+```
+
+### 4. Run your site and view the logs in API Hero
+
+![My API Hero logs](/img/logs.png)
+You should see every API request, including ones which failed.
+It's possible that you need to add authentication for the API endpoint that you're trying to use.
+
+### 5. Adding API authentication
