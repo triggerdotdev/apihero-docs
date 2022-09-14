@@ -25,14 +25,14 @@ API Hero allows you to connect to 3rd party APIs in seconds, directly from your 
 - Caching can be flicked on with a switch (and the cache time set)
 - You can view logs of every API call to track down issues
 
-# Super quick start
+# React quick start
 
 ### 1. Run the API Hero CLI
 
 Run this in your project folder
 
 ```sh
-npx apihero add GitHub
+npx apihero@latest add GitHub
 ```
 
 ### 2. Follow the instructions
@@ -41,9 +41,23 @@ It should guide you to:
 
 1. Login to API Hero (creating an account if you don't have one)
 2. Select the API you want to use
-3. Create an API Hero project
+3. Create a project in API Hero
 
-It will install the required packages so you can start coding.
+It will also install the required packages so you can start using the API.
+
+### 3. Setup the ApiHeroProvider
+
+Before you can begin making API calls, you need to wrap your app in the `ApiHeroProvider` and pass in your projectKey that you should have received from the CLI.
+
+```jsx
+export default function ExportedApp() {
+  return (
+    <APIHeroProvider projectKey="<Your Project Key Here>">
+      <App />
+    </APIHeroProvider>
+  );
+}
+```
 
 ### 3. Use the API
 
