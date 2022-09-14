@@ -74,6 +74,4 @@ export function StarCount({ owner, repo }: { owner: string; repo: string }) {
 
 ![My API Hero logs](/img/logs.png)
 You should see every API request, including ones which failed.
-It's possible that you need to add authentication for the API endpoint that you're trying to use.
-
-### 5. Adding API authentication
+It's possible that you need to add authentication for the API endpoint that you're trying to use. See [Authentication](/features/authentication) for more info.
