@@ -60,7 +60,7 @@ const config = {
         },
         items: [
           {
-            href: "https://github.com/jsonhero-io/api-hero",
+            href: "https://github.com/apihero-run/api-hero",
             label: "GitHub",
             position: "right",
           },
@@ -96,7 +96,7 @@ const config = {
             items: [
               {
                 label: "GitHub",
-                href: "https://github.com/jsonhero-io/api-hero",
+                href: "https://github.com/apihero-run/api-hero",
               },
             ],
           },

@@ -1,6 +1,6 @@
 ---
-sidebar_label: "Create account"
-sidebar_position: 1
+sidebar_label: "CLI"
+sidebar_position: 4
 ---
 
 # Hello
