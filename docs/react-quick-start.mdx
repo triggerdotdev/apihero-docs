@@ -4,6 +4,9 @@ sidebar_position: 2
 hide_title: true
 ---
 
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
 # React Quick Start
 
 In this guide we will get you up and running using API Hero to connect to the GitHub REST API from a React application.
@@ -35,28 +38,105 @@ When it's finished it will print out your `projectKey` (a long string of charact
 
 ### 2. Add the `ApiHeroProvider`
 
-Before you can begin making API calls, you need to wrap your app in the `ApiHeroProvider` and pass in your projectKey that you should have received from the CLI.
+Before you can make API calls, you must add the `ApiHeroProvider` React component to the top of your React app component tree, providing the `projectKey` prop. This is because interally the `@apihero/react` package uses [Tanstack Query](https://tanstack.com/query/v4), and `ApiHeroProvider` is a wrapper around Tanstack's [QueryClientProvider](https://tanstack.com/query/v4/docs/reference/QueryClientProvider).
 
-```tsx
-export default function App() {
+<Tabs>
+<TabItem value="next" label="Next.js">
+
+```tsx title="pages/_app.tsx"
+// other imports here
+import { ApiHeroProvider } from "@apihero/react";
+
+function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <APIHeroProvider projectKey="<Your projectKey Here>">
-      <Home />
-    </APIHeroProvider>
+    <ApiHeroProvider projectKey="<projectKey>">
+      <Component {...pageProps} />
+    </ApiHeroProvider>
   );
 }
+
+export default MyApp;
 ```
+
+</TabItem>
+
+<TabItem value="cra" label="Create React App">
+
+```tsx title="src/App.tsx"
+// other imports here
+import { ApiHeroProvider } from "@apihero/react";
+
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+root.render(
+  <React.StrictMode>
+    <ApiHeroProvider projectKey="<projectKey>">
+      <App />
+    </ApiHeroProvider>
+  </React.StrictMode>
+);
+```
+
+</TabItem>
+
+<TabItem value="gatsby" label="Gatsby">
+
+```tsx title="src/pages/index.tsx"
+// other imports here
+import { ApiHeroProvider } from "@apihero/react";
+
+const IndexPage = () => {
+  return <>...</>;
+};
+
+export default () => (
+  <ApiHeroProvider projectKey="<projectKey>">
+    <IndexPage />
+  </ApiHeroProvider>
+);
+```
+
+</TabItem>
+
+<TabItem value="vite" label="Vite">
+
+```tsx title="src/main.tsx"
+// other imports here
+import { ApiHeroProvider } from "@apihero/react";
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <ApiHeroProvider projectKey="<projectKey>">
+      <App />
+    </ApiHeroProvider>
+  </React.StrictMode>
+);
+```
+
+</TabItem>
+</Tabs>
+
+:::tip
+
+Although it may seem unsafe, it is okay to put the `projectKey` in your code. The `projectKey` is a unique identifier for your project, and is used to authenticate with the API Hero API. It is not a secret, think of it more as a username.
+
+:::
 
 ### 3. Create your first endpoint hook
 
-Use `createEndpoint` to export a React hook that fetches the [`repos.getRepo`](https://docs.github.com/en/rest/repos/repos#get-a-repository) API
+Instead of calling a function directly to make an API call, you first need to create a React hook representing the endpoint you want to call. This is because internally the `@apihero/react` package uses [Tanstack Query](https://tanstack.com/query/v4), and endpoint hooks are a wrapper around Tanstack's [useQuery](https://tanstack.com/query/v4/docs/reference/useQuery) hook.
 
-```ts
+The `createEndpoint` function from `@apihero/react` will create an "endpoint hook", in this case for the [`repos.getRepo`](https://docs.github.com/en/rest/repos/repos#get-a-repository) endpoint.
+
+```ts title="src/github.ts"
 import { repos } from "@apihero/github";
 import { createEndpoint } from "@apihero/react";
 
 export const useGetRepository = createEndpoint(repos.getRepo);
 ```
+
+Since we exported it, `useGetRepository` can now be used within your React components as a React hook.
 
 ### 4. Use endpoint hook in a component
 
@@ -90,6 +170,8 @@ Because `repos.getRepo` contains the TypeScript types for the endpoint, using th
 And the response body:
 
 ![stargazers_count](/img/react/stargazers_count.png)
+
+For more about endpoint hooks, see the [React](/platforms/react) guide, for now let's just make a request and see what happens.
 
 ### 4. Inspect the request in API Hero
 
