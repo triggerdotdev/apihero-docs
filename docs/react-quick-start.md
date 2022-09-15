@@ -74,4 +74,43 @@ export function StarCount({ owner, repo }: { owner: string; repo: string }) {
 
 ![My API Hero logs](/img/logs.png)
 You should see every API request, including ones which failed.
-It's possible that you need to add authentication for the API endpoint that you're trying to use. See [Authentication](/features/authentication) for more info.
+
+### 5. Add Authentication
+
+Calling public GitHub endpoints without authentication info is possible but is limited to 60 requests per hour.
+
+:::warning
+
+GitHub rate-limits non-authenticated requests by IP address. Based on personal experience, you can easily use up an entire large office's request quota if you aren't careful!
+
+:::
+
+Don't worry, API Hero makes it really easy to add authentication to your API calls, without having to change a line of code!
+
+First, head over to [GitHub's Personal access tokens page](https://github.com/settings/tokens) and generate a new token to use with API Hero:
+
+![GitHub PAT](/img/authentication/githubPAT.png)
+
+Make sure to select the `repo` scope if you'd like to fetch data about private repositories. If not, leave the scopes blank.
+
+After saving GitHub will show you the PAT string that you'll need to copy out for the next step:
+
+![GitHub PAT copy](/img/authentication/githubPATcopy.png)
+
+Head over to [app.apihero.run](app.apihero.run) and navigate to the project page. Click on the "Add" button in the Authentication side panel:
+
+![API Hero Add Auth](/img/authentication/addAuth.png)
+
+Add a Personal Access Token to your project using your GitHub username as the PAT username:
+
+![API Hero Add PAT](/img/authentication/githubPATadd.png)
+
+![API Hero Save PAT](/img/authentication/githubPATsave.png)
+
+Back on the Project page, you should now see that you have 1 authentication method configured:
+
+![Project with PAT Auth](/img/authentication/projectWithAuth.png)
+
+Without changing your code at all, go ahead and make another request and then head back to the Request History page to confirm your raised rate limits:
+
+![History with rate limits](/img/authentication/historyWithRateLimits.png)
