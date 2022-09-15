@@ -4,76 +4,98 @@ sidebar_position: 2
 hide_title: true
 ---
 
-# React quick start
+# React Quick Start
 
-To use API Hero in your React app, follow the steps below.
+In this guide we will get you up and running using API Hero to connect to the GitHub REST API from a React application.
 
 ### 1. Run the API Hero CLI
 
-Run this in your project folder
+In your terminal, navigate to the root directory of your React application.
 
-```sh
+:::info
+
+We currently support React 16+
+
+:::
+
+Run the following command to bootstrap your React project with API Hero and add your first API integration:
+
+```zsh
 npx apihero@latest add GitHub
 ```
 
-### 2. Follow the instructions
+This command will take you through a series of steps to get started
 
-It should guide you to:
+- Authenticating with API Hero (if you haven't already)
+- Selecting an existing Workspace / Project on apihero.run or creating a new one
+- Adding the GitHub API to your Project on apihero.run
+- Adding the `@apihero/github` and `@apihero/react` packages to your package dependencies
 
-1. Login to API Hero (creating an account if you don't have one)
-2. Select the API you want to use
-3. Create a project in API Hero
+When it's finished it will print out your `projectKey` (a long string of characters like `cl823alx00590eidl9qxg0h6x`). We'll need that in the following steps.
 
-It will also install the required packages so you can start using the API.
-
-### 3. Setup the ApiHeroProvider
+### 2. Add the `ApiHeroProvider`
 
 Before you can begin making API calls, you need to wrap your app in the `ApiHeroProvider` and pass in your projectKey that you should have received from the CLI.
 
-```jsx
-export default function ExportedApp() {
+```tsx
+export default function App() {
   return (
-    <APIHeroProvider projectKey="<Your Project Key Here>">
-      <App />
+    <APIHeroProvider projectKey="<Your projectKey Here>">
+      <Home />
     </APIHeroProvider>
   );
 }
 ```
 
-### 3. Use the API
+### 3. Create your first endpoint hook
+
+Use `createEndpoint` to export a React hook that fetches the [`repos.getRepo`](https://docs.github.com/en/rest/repos/repos#get-a-repository) API
 
 ```ts
-//used to create a React hook
+import { repos } from "@apihero/github";
 import { createEndpoint } from "@apihero/react";
 
-//the api endpoint group you want to use, in this case from the GitHub integration from API Hero.
-//usually I just let VSCode import everything for me
-import { repos } from "@apihero/github";
+export const useGetRepository = createEndpoint(repos.getRepo);
+```
 
-const useGetRepo = createEndpoint(repos.getRepo);
+### 4. Use endpoint hook in a component
 
+Now you can use the fully typed `useGetRepository` hook in a React component:
+
+```tsx
 export function StarCount({ owner, repo }: { owner: string; repo: string }) {
-  //use the API Hero hook you created, passing in anything it expects
-  const { data, status, error } = useGetRepo({ owner, repo });
+  const { data, status, error } = useGetRepository({
+    owner,
+    repo,
+  });
 
   return (
-    <div>
+    <>
       {status === "loading" ? (
-        <p>Loading…</p>
+        <Spinner />
       ) : status === "error" ? (
-        <p>🫤 {error.message}.</p>
+        <p>Oops, repo {error.message.toLowerCase()}</p>
       ) : (
-        <p>{data.stargazers_count} stars</p>
+        <h2>{data.stargazers_count} stars</h2>
       )}
-    </div>
+    </>
   );
 }
 ```
 
-### 4. Run your site and view the logs in API Hero
+Because `repos.getRepo` contains the TypeScript types for the endpoint, using the `useGetRepository` hook presents helpful typed suggestions for the props:
 
-![My API Hero logs](/img/logs.png)
-You should see every API request, including ones which failed.
+![useGetRepository types](/img/react/useGetRepositoryTypes.png)
+
+And the response body:
+
+![stargazers_count](/img/react/stargazers_count.png)
+
+### 4. Inspect the request in API Hero
+
+After running your React app and using the `StarCount` component, head over to [app.apihero.run](app.apihero.run) and inspect the request in the [Request History](/features/request-history):
+
+![My API Hero logs](/img/nodeLogs.png)
 
 ### 5. Add Authentication
 
