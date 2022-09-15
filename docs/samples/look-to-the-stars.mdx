@@ -8,3 +8,23 @@ We've developed a sample Next.js app that demonstrates the use of calling the Gi
   id="api-hero-look-to-the-stars-u6pgt9"
   module="/pages/index.tsx"
 />
+
+## What's happening?
+
+The app is a simple Next.js app that uses the GitHub API to fetch information about your favorite repository and returns the number of stars that repo has.
+
+There are three key parts of this app that we'll look at:
+
+### 1. The `ApiHeroProvider`
+
+In [`/pages/index.tsx`](https://codesandbox.io/s/api-hero-look-to-the-stars-u6pgt9?file=/pages/index.tsx:634-666) you'll find the `ApiHeroProvider` component. This component is responsible for providing the API client to the rest of the app. It's also responsible for providing the API client with the API key that you'll need to make requests to the GitHub API.
+
+```tsx
+export default function App() {
+  return (
+    <APIHeroProvider>
+      <Home />
+    </APIHeroProvider>
+  );
+}
+```

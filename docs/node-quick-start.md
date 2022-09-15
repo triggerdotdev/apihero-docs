@@ -75,7 +75,7 @@ await getStarCount("apihero-run", "jsonhero-web"); // => 5000
 
 ### 4. Inspect the request in API Hero
 
-Head over to [app.apihero.run](app.apihero.run) and inspect the request in the [Request History](/features/request-history):
+Head over to [app.apihero.run](https://app.apihero.run) and inspect the request in the [Request History](/features/request-history):
 
 ![My API Hero logs](/img/nodeLogs.png)
 
@@ -101,7 +101,7 @@ After saving GitHub will show you the PAT string that you'll need to copy out fo
 
 ![GitHub PAT copy](/img/authentication/githubPATcopy.png)
 
-Head over to [app.apihero.run](app.apihero.run) and navigate to the project page. Click on the "Add" button in the Authentication side panel:
+Head over to [app.apihero.run](https://app.apihero.run) and navigate to the project page. Click on the "Add" button in the Authentication side panel:
 
 ![API Hero Add Auth](/img/authentication/addAuth.png)
 
