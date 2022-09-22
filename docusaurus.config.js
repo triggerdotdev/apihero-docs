@@ -60,8 +60,8 @@ const config = {
         },
         items: [
           {
-            href: "https://github.com/apihero-run/api-hero",
-            label: "GitHub",
+            href: "https://app.apihero.run",
+            label: "app.apihero.run",
             position: "right",
           },
         ],
