@@ -3,6 +3,6 @@ sidebar_label: "CLI"
 sidebar_position: 4
 ---
 
-# Hello
+# API Hero CLI
 
-This is my **first Docusaurus document**!
+Documentation coming soon

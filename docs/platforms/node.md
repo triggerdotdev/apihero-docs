@@ -4,4 +4,6 @@ hide_title: true
 sidebar_label: "Node"
 ---
 
-# Node Examples
+# Node
+
+Documentation coming soon. For now head over to the [Node Quick Start](/node-quick-start)

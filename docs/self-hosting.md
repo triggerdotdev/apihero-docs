@@ -4,4 +4,6 @@ sidebar_position: 9
 hide_title: true
 ---
 
-Coming soon
+# Self-hosting
+
+Documentation coming soon.
