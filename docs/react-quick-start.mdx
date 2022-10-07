@@ -40,7 +40,7 @@ When it's finished it will print out your `projectKey` (a long string of charact
 
 Before you can make API calls, you must add the `ApiHeroProvider` React component to the top of your React app component tree, providing the `projectKey` prop. This is because interally the `@apihero/react` package uses [Tanstack Query](https://tanstack.com/query/v4), and `ApiHeroProvider` is a wrapper around Tanstack's [QueryClientProvider](https://tanstack.com/query/v4/docs/reference/QueryClientProvider).
 
-<Tabs>
+<Tabs groupId="react-platform">
 <TabItem value="next" label="Next.js">
 
 ```tsx title="pages/_app.tsx"
