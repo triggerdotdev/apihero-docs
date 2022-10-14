@@ -54,7 +54,6 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        
         logo: {
           alt: "API Hero",
           src: "img/logo-full.png",
@@ -89,7 +88,7 @@ const config = {
               },
               {
                 label: "Twitter",
-                href: "https://twitter.com/tryapihero",
+                href: "https://twitter.com/runapihero",
               },
             ],
           },
@@ -98,7 +97,7 @@ const config = {
             items: [
               {
                 label: "GitHub",
-                href: "https://github.com/apihero-run/api-hero",
+                href: "https://github.com/apihero-run",
               },
             ],
           },
