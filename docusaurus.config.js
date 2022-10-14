@@ -54,10 +54,10 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "API Hero",
+        
         logo: {
           alt: "API Hero",
-          src: "img/logo.svg",
+          src: "img/logo-full.png",
           href: "https://app.apihero.run",
         },
         items: [
