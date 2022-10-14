@@ -1,4 +1,4 @@
-# Request History
+# Request explorer
 
 import { YouTubeEmbed } from "@site/src/components/YouTubeEmbed";
 
@@ -34,7 +34,7 @@ This displays how many requests are left before you hit the rate limit. E.g. `1/
 
 You can select the time period to view the logs for.
 
-## How to view the request history
+## How to view the Request explorer
 
 ### 1. Visit your project dashboard
 

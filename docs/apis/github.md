@@ -5,3 +5,7 @@ sidebar_label: "GitHub"
 ---
 
 # GitHub REST API
+
+## Add your first endpoint
+
+Add your first endpoint like this:

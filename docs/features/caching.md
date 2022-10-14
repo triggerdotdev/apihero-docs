@@ -31,8 +31,8 @@ In this example we set the cache to 1 hour:
 
 ![Set the cache time](/img/caching/setDuration.png)
 
-### 4. Cached results in the Request History
+### 4. Cached results in the Request explorer
 
-In the [Request History](/features/request-history) cached responses have a tick in the `Cached` column.
+In the [Request explorer](/features/request-explorer) cached responses have a tick in the `Cached` column.
 
 ![Cached responses in the log](/img/caching/cachedLog.png)

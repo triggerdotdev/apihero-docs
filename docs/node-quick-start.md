@@ -75,7 +75,7 @@ await getStarCount("apihero-run", "jsonhero-web"); // => 5000
 
 ### 4. Inspect the request in API Hero
 
-Head over to [app.apihero.run](https://app.apihero.run) and inspect the request in the [Request History](/features/request-history):
+Head over to [app.apihero.run](https://app.apihero.run) and inspect the request in the [Request explorer](/features/request-explorer):
 
 ![My API Hero logs](/img/nodeLogs.png)
 
@@ -115,6 +115,6 @@ Back on the Project page, you should now see that you have 1 authentication meth
 
 ![Project with PAT Auth](/img/authentication/projectWithAuth.png)
 
-Without changing your code at all, go ahead and make another request (like in step 3) and then head back to the Request History page to confirm your raised rate limits:
+Without changing your code at all, go ahead and make another request (like in step 3) and then head back to the Request explorer page to confirm your raised rate limits:
 
 ![History with rate limits](/img/authentication/historyWithRateLimits.png)
