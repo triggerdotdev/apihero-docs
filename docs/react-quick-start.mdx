@@ -129,13 +129,13 @@ That's all you have to do to get started! But let's continue with an example to 
 
 Instead of calling a function directly to make an API call, you first need to create a React hook representing the endpoint you want to call. This is because internally the `@apihero/react` package uses [Tanstack Query](https://tanstack.com/query/v4), and endpoint hooks are a wrapper around Tanstack's [useQuery](https://tanstack.com/query/v4/docs/reference/useQuery) hook.
 
-The `createEndpoint` function from `@apihero/react` will create an "endpoint hook", in this case for the [`repos.getRepo`](https://docs.github.com/en/rest/repos/repos#get-a-repository) endpoint.
+The `createQuery` function from `@apihero/react` will create an "endpoint hook", in this case for the [`repos.getRepo`](https://docs.github.com/en/rest/repos/repos#get-a-repository) endpoint.
 
 ```ts title="src/endpoints.ts"
 import { repos } from "@apihero/github";
-import { createEndpoint } from "@apihero/react";
+import { createQuery } from "@apihero/react";
 
-export const useGetRepository = createEndpoint(repos.getRepo);
+export const useGetRepository = createQuery(repos.getRepo);
 ```
 
 Since we exported it, `useGetRepository` can now be used within your React components as a React hook.
