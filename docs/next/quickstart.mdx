@@ -1,0 +1,110 @@
+# API Hero Quick Start
+
+In this guide we'll cover integrating API Hero in your application
+
+## Using `createFetch`
+
+You can integrate API Hero in any application or SDK that works with the `fetch` standard, using the `createFetch` function in `@apihero/fetch`. For example, the Octokit.js SDK accepts a `fetch` method in it's configuration
+
+### Install the package
+
+First, install the `@apihero/fetch` package:
+
+```bash npm2yarn
+npm install @apihero/fetch@latest
+```
+
+### Update your usage of Octokit.js
+
+Octokit.js allows you to pass in a custom fetch function, to be used on all requests. Usage the `createFetch` method from `apihero/next`, passing in your project key:
+
+```typescript
+import { Octokit } from "@octokit/rest";
+import { createFetch } from "@apihero/fetch";
+const octokit = new Octokit({
+  request: {
+    fetch: createFetch({ projectKey: "hero_abc123" }),
+  },
+});
+```
+
+### Make some requests
+
+Trigger requests and then visit app.apihero.run
+
+## In a frontend application
+
+You can easily integrate API Hero in an application that makes API requests from a frontend, for example in React or Vue, by using the `@apihero/worker` package and service workers.
+
+API Hero makes use of Service Workers to intercept requests and forward them to the API Hero proxy at gateway.apihero.run (or your own self-hosted version).
+
+The following steps will walk you through how to do it
+
+### Run the init command
+
+```bash
+npx apihero init ./public --save
+```
+
+This will save the service worker code to your public directory.
+
+### Configure the worker
+
+```tsx
+// src/worker.ts
+import { setupWorker } from '@apihero/worker'
+
+This configures a Service Worker with the given request handlers.
+export const worker = setupWorker({ projectKey: "hero_abc123", domains: ["api.github.com"] });
+```
+
+### Start the worker
+
+```tsx
+// src/index.js
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { worker } from "./worker";
+
+worker.start();
+
+ReactDOM.render(<App />, document.getElementById("root"));
+```
+
+You can also wait to start rendering your React app until the worker is ready (in case your app makes API requests on first render):
+
+```tsx
+// src/index.js
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { worker } from "./worker";
+
+worker
+  .start()
+  .then(() => ReactDOM.render(<App />, document.getElementById("root")));
+```
+
+## In an express application
+
+You can use the `@apihero/express` middleware to add API Hero to your express application:
+
+### Install the package
+
+First, install the `@apihero/express` package:
+
+```bash npm2yarn
+npm install @apihero/express@latest
+```
+
+### Add the `apihero` middleware:
+
+```ts
+import express from "express";
+
+const app = express();
+const { apiHero } = require("@apihero/express");
+
+app.use(apiHero({ projectKey: "hero_abc123", domains: ["api.github.com"] }));
+```
