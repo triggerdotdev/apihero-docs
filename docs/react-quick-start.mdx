@@ -23,19 +23,26 @@ npm i @apihero/js
 
 API Hero uses the [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) to forward specified traffic through a proxy server.
 
-<Tabs groupId="install-server-worker">
-<TabItem value="nextjs" label="Next.js">
+You need to run the command in the table below for your framework:
 
-Execute the following command in your project root:
+| Project name                                      | Public directory                                            | Command                               |
+| ------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------- |
+| [Create React App](https://create-react-app.dev/) | `./public`                                                  | `npm exec apihero-js init public/`    |
+| [Gatsby](https://www.gatsbyjs.com/)               | `./static`                                                  | `npm exec apihero-js init static/`    |
+| [Next.js](https://nextjs.org/)                    | `./public`                                                  | `npm exec apihero-js init public/`    |
+| [Vue.js](https://vuejs.org/)                      | `./public`                                                  | `npm exec apihero-js init public/`    |
+| [Angular](https://angular.io/)                    | `./src` (and add it to the assets of the angular.json file) | `npm exec apihero-js init src/`       |
+| [Preact](https://preactjs.com/)                   | `./src/static`                                              | `npm exec apihero-js init src/static` |
+| [Ember.js](https://emberjs.com/)                  | `./public`                                                  | `npm exec apihero-js init public/`    |
+| [Svelte](https://svelte.dev/)                     | `./public`                                                  | `npm exec apihero-js init public/`    |
+| [SvelteKit](https://kit.svelte.dev/)              | `./static`                                                  | `npm exec apihero-js init static/`    |
+| [Vite](https://vitejs.dev/)                       | `./public`                                                  | `npm exec apihero-js init public/`    |
 
-```zsh
-npm exec apihero-js init public/
-```
+:::tip
 
 You can swap out `npm` for `pnpm` or `yarn` in the command above and it will work.
 
-</TabItem>
-</Tabs>
+:::
 
 ---
 
@@ -193,4 +200,4 @@ Login to your [API Hero](https://app.apihero.run) account. It should look someth
 After you have run your web app and your first logs come through the page will automatically update to the following:
 ![Your project with logs](/img/onboarding-has-logs.png)
 
-You can select any of the logs entries to view the full request and response information.
+You can select any of the log entries to view the full request and response information.
