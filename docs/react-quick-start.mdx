@@ -187,44 +187,10 @@ Although it may seem unsafe, it is okay to put the `projectKey` in your code. Th
 
 ### 4. Run your web app to start monitoring API traffic
 
-![My API Hero logs](/img/nodeLogs.png)
+Login to your [API Hero](https://app.apihero.run) account. It should look something like this:
+![Your project before you have logs](/img/onboarding-no-logs.png)
 
-### 5. Add Authentication
+After you have run your web app and your first logs come through the page will automatically update to the following:
+![Your project with logs](/img/onboarding-has-logs.png)
 
-Calling public GitHub endpoints without authentication info is possible but is limited to 60 requests per hour.
-
-:::warning
-
-GitHub rate-limits non-authenticated requests by IP address. Based on personal experience, you can easily use up an entire large office's request quota if you aren't careful!
-
-:::
-
-Don't worry, API Hero makes it really easy to add authentication to your API calls, without having to change a line of code!
-
-First, head over to [GitHub's Personal access tokens page](https://github.com/settings/tokens) and generate a new token to use with API Hero:
-
-![GitHub PAT](/img/authentication/githubPAT.png)
-
-Make sure to select the `repo` scope if you'd like to fetch data about private repositories. If not, leave the scopes blank.
-
-After saving GitHub will show you the PAT string that you'll need to copy out for the next step:
-
-![GitHub PAT copy](/img/authentication/githubPATcopy.png)
-
-Head over to [app.apihero.run](https://app.apihero.run) and navigate to the project page. Click on the "Add" button in the Authentication side panel:
-
-![API Hero Add Auth](/img/authentication/addAuth.png)
-
-Add a Personal Access Token to your project using your GitHub username as the PAT username:
-
-![API Hero Add PAT](/img/authentication/githubPATadd.png)
-
-![API Hero Save PAT](/img/authentication/githubPATsave.png)
-
-Back on the Project page, you should now see that you have 1 authentication method configured:
-
-![Project with PAT Auth](/img/authentication/projectWithAuth.png)
-
-Without changing your code at all, go ahead and make another request and then head back to the Request explorer page to confirm your raised rate limits:
-
-![History with rate limits](/img/authentication/historyWithRateLimits.png)
+You can select any of the logs entries to view the full request and response information.
