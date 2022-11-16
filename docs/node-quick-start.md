@@ -6,115 +6,71 @@ hide_title: true
 
 # Node Quick Start
 
-In this guide we will get you up and running using API Hero to connect to the GitHub REST API.
+In this guide we will get you up and running using API Hero in a few minutes.
 
-### 1. Run the API Hero CLI
+### 1. Install the API Hero js package
 
-In your terminal, navigate to the root directory of your Node.js application.
-
-:::info
-
-We currently only support Node.js 18+ because we make use of the new native [fetch](https://nodejs.org/en/blog/announcements/v18-release-announce/#fetch-experimental) API
-
-:::
-
-Run the following command to bootstrap your Node.js project with API Hero and add your first API integration:
+Install the `@apihero/js` package using your preferred package manager. Here we use npm:
 
 ```zsh
-npx apihero@latest add GitHub
+npm i @apihero/js
 ```
 
-This command will take you through a series of steps to get started
+### 2. Check your tsconfig.json configuration (if you're using TypeScript)
 
-- Authenticating with API Hero (if you haven't already)
-- Selecting an existing Workspace / Project on apihero.run or creating a new one
-- Adding the GitHub API to your Project on apihero.run
-- Adding the `@apihero/github` and `@apihero/node` packages to your package dependencies
+Ensure that your `moduleResolution` is set to `nodenext`:
 
-When it's finished it will print out your `projectKey` (a long string of characters like `cl823alx00590eidl9qxg0h6x`). We'll need that in the following steps.
-
-### 2. Write the code
-
-Now you are ready to add some code to your Node.js project to call your first GitHub API. For this example we're going to be using the [Get a Repo](https://docs.github.com/en/rest/repos/repos#get-a-repository) endpoint because it can be used without authentication.
-
-```ts
-import { repos } from "@apihero/github";
-import { fetchEndpoint } from "@apihero/node";
-
-export async function getStarCount(owner: string, repo: string) {
-  const response = await fetchEndpoint(
-    repos.getRepo,
-    {
-      owner,
-      repo,
-    },
-    { projectKey: "<your projectKey here>" }
-  );
-
-  if (response.status === "success") {
-    return response.body.stargazers_count;
-  } else {
-    throw response.error;
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    //... other options
+    "moduleResolution": "nodenext"
+    //... other options
   }
+  //... other
 }
 ```
 
-The `repos.getRepo` code is the way you reference which API endpoint you want to fetch, and we use it to make sure the params passed in (in this case `owner` and `repo`) are correct, and we also give you back the correct type of the response body:
+### 3. Configure the worker
 
-![getRepo endpoint](/img/getRepo.png)
-
-![stargazers_count](/img/stargazers_count.png)
-
-### 3. Run the code
-
-Now do whatever it is you need to do to call the above code. Here's a hint:
+The final step is to configure and start the service worker. You can place this code anywhere that is executed when your application starts.
 
 ```ts
-await getStarCount("apihero-run", "jsonhero-web"); // => 5000
+async function initProxy() {
+  const { setupProxy } = await import("@apihero/js/node");
+  const proxy = setupProxy({
+    // your project key can be found on your project page
+    projectKey: "hero_123abc",
+    // you only need to specify the url if you want to self-host API Hero
+    //it defaults to the hosted proxy:
+    //url: "https://proxy.apihero.run",
+    env: process.env.NODE_ENV,
+    // optionally specify patterns that get proxied, it defaults to all
+    //allow: ["https://api.github.com/*"],
+    // optionally stop certain requests by using deny
+    //deny: ["https://disallowdomain.com/*"],
+  });
+
+  await proxy.start();
+}
+
+initProxy();
 ```
 
-### 4. Inspect the request in API Hero
+If you don't specify an `allow` list, all requests will be proxied. You can use `deny` to block specific requests, or use `allow` to opt-in to certain domains. You can use them combined to allow some request patterns and deny others.
 
-Head over to [app.apihero.run](https://app.apihero.run) and inspect the request in the [Request explorer](/features/request-explorer):
+:::tip
 
-![My API Hero logs](/img/nodeLogs.png)
-
-### 5. Add Authentication
-
-Calling public GitHub endpoints without authentication info is possible but is limited to 60 requests per hour.
-
-:::warning
-
-GitHub rate-limits non-authenticated requests by IP address. Based on personal experience, you can easily use up an entire large office's request quota if you aren't careful!
+Although it may seem unsafe, it is okay to put the `projectKey` in your code. The `projectKey` is a unique identifier for your project, and is used to authenticate with the API Hero API. It is not a secret, think of it more as a username.
 
 :::
 
-Don't worry, API Hero makes it really easy to add authentication to your API calls, without having to change a line of code!
+### 4. Run your web app to start monitoring API traffic
 
-First, head over to [GitHub's Personal access tokens page](https://github.com/settings/tokens) and generate a new token to use with API Hero:
+Login to your [API Hero](https://app.apihero.run) account. It should look something like this:
+![Your project before you have logs](/img/onboarding-no-logs.png)
 
-![GitHub PAT](/img/authentication/githubPAT.png)
+After you have run your web app and your first logs come through the page will automatically update to the following:
+![Your project with logs](/img/onboarding-has-logs.png)
 
-Make sure to select the `repo` scope if you'd like to fetch data about private repositories. If not, leave the scopes blank.
-
-After saving GitHub will show you the PAT string that you'll need to copy out for the next step:
-
-![GitHub PAT copy](/img/authentication/githubPATcopy.png)
-
-Head over to [app.apihero.run](https://app.apihero.run) and navigate to the project page. Click on the "Add" button in the Authentication side panel:
-
-![API Hero Add Auth](/img/authentication/addAuth.png)
-
-Add a Personal Access Token to your project using your GitHub username as the PAT username:
-
-![API Hero Add PAT](/img/authentication/githubPATadd.png)
-
-![API Hero Save PAT](/img/authentication/githubPATsave.png)
-
-Back on the Project page, you should now see that you have 1 authentication method configured:
-
-![Project with PAT Auth](/img/authentication/projectWithAuth.png)
-
-Without changing your code at all, go ahead and make another request (like in step 3) and then head back to the Request explorer page to confirm your raised rate limits:
-
-![History with rate limits](/img/authentication/historyWithRateLimits.png)
+You can select any of the log entries to view the full request and response information.
