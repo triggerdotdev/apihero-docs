@@ -1,0 +1,230 @@
+---
+sidebar_label: "Quick Start - React"
+sidebar_position: 2
+hide_title: true
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# React Quick Start
+
+In this guide we will get you up and running using API Hero in a few minutes.
+
+### 1. Install the API Hero js package
+
+Install the `@apihero/js` package using your preferred package manager. Here we use npm:
+
+```zsh
+npm i @apihero/js
+```
+
+### 2. Install the worker
+
+API Hero uses the [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) to forward specified traffic through a proxy server.
+
+<Tabs groupId="install-server-worker">
+<TabItem value="nextjs" label="Next.js">
+
+Execute the following command in your project root:
+
+```zsh
+npm exec apihero-js init public/
+```
+
+You can swap out `npm` for `pnpm` or `yarn` in the command above and it will work.
+
+</TabItem>
+</Tabs>
+
+---
+
+### 3. Configure the worker
+
+The final step is to configure and start the service worker.
+
+<Tabs groupId="react-platform">
+<TabItem value="next" label="Next.js">
+
+In your root page add the following code:
+
+```tsx title="pages/_app.tsx"
+// You don't need to make any changes to your components
+export default function App({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
+}
+
+//add this function
+async function initProxy() {
+  if (typeof window !== "undefined") {
+    const { setupWorker } = await import("@apihero/js");
+    const worker = setupWorker({
+      // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
+      allow: ["https://api.github.com/*"],
+      // your project key can be found on your project page
+      projectKey: "hero_123abc",
+      // you only need to specify the url if you want to self-host API Hero
+      //it defaults to the hosted proxy:
+      //url: "https://proxy.apihero.run",
+      env: process.env.NODE_ENV,
+    });
+    await worker.start();
+  }
+}
+
+initProxy();
+```
+
+</TabItem>
+
+<TabItem value="cra" label="Create React App">
+
+```tsx title="src/App.tsx"
+// You don't need to make any changes to your components
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+//add this function
+async function initProxy() {
+  if (typeof window !== "undefined") {
+    const { setupWorker } = await import("@apihero/js");
+    const worker = setupWorker({
+      // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
+      allow: ["https://api.github.com/*"],
+      // your project key can be found on your project page
+      projectKey: "hero_123abc",
+      // you only need to specify the url if you want to self-host API Hero
+      //it defaults to the hosted proxy:
+      //url: "https://proxy.apihero.run",
+      env: process.env.NODE_ENV,
+    });
+    await worker.start();
+  }
+}
+
+initProxy();
+```
+
+</TabItem>
+
+<TabItem value="gatsby" label="Gatsby">
+
+```tsx title="src/pages/index.tsx"
+// You don't need to make any changes to your components
+const IndexPage = () => {
+  return <>...</>;
+};
+export default () => <IndexPage />;
+
+//add this function
+async function initProxy() {
+  if (typeof window !== "undefined") {
+    const { setupWorker } = await import("@apihero/js");
+    const worker = setupWorker({
+      // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
+      allow: ["https://api.github.com/*"],
+      // your project key can be found on your project page
+      projectKey: "hero_123abc",
+      // you only need to specify the url if you want to self-host API Hero
+      //it defaults to the hosted proxy:
+      //url: "https://proxy.apihero.run",
+      env: process.env.NODE_ENV,
+    });
+    await worker.start();
+  }
+}
+
+initProxy();
+```
+
+</TabItem>
+
+<TabItem value="vite" label="Vite">
+
+```tsx title="src/main.tsx"
+// You don't need to make any changes to your components
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+//add this function
+async function initProxy() {
+  if (typeof window !== "undefined") {
+    const { setupWorker } = await import("@apihero/js");
+    const worker = setupWorker({
+      // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
+      allow: ["https://api.github.com/*"],
+      // your project key can be found on your project page
+      projectKey: "hero_123abc",
+      // you only need to specify the url if you want to self-host API Hero
+      //it defaults to the hosted proxy:
+      //url: "https://proxy.apihero.run",
+      env: process.env.NODE_ENV,
+    });
+    await worker.start();
+  }
+}
+
+initProxy();
+```
+
+</TabItem>
+</Tabs>
+
+:::tip
+
+Although it may seem unsafe, it is okay to put the `projectKey` in your code. The `projectKey` is a unique identifier for your project, and is used to authenticate with the API Hero API. It is not a secret, think of it more as a username.
+
+:::
+
+### 4. Run your web app to start monitoring API traffic
+
+![My API Hero logs](/img/nodeLogs.png)
+
+### 5. Add Authentication
+
+Calling public GitHub endpoints without authentication info is possible but is limited to 60 requests per hour.
+
+:::warning
+
+GitHub rate-limits non-authenticated requests by IP address. Based on personal experience, you can easily use up an entire large office's request quota if you aren't careful!
+
+:::
+
+Don't worry, API Hero makes it really easy to add authentication to your API calls, without having to change a line of code!
+
+First, head over to [GitHub's Personal access tokens page](https://github.com/settings/tokens) and generate a new token to use with API Hero:
+
+![GitHub PAT](/img/authentication/githubPAT.png)
+
+Make sure to select the `repo` scope if you'd like to fetch data about private repositories. If not, leave the scopes blank.
+
+After saving GitHub will show you the PAT string that you'll need to copy out for the next step:
+
+![GitHub PAT copy](/img/authentication/githubPATcopy.png)
+
+Head over to [app.apihero.run](https://app.apihero.run) and navigate to the project page. Click on the "Add" button in the Authentication side panel:
+
+![API Hero Add Auth](/img/authentication/addAuth.png)
+
+Add a Personal Access Token to your project using your GitHub username as the PAT username:
+
+![API Hero Add PAT](/img/authentication/githubPATadd.png)
+
+![API Hero Save PAT](/img/authentication/githubPATsave.png)
+
+Back on the Project page, you should now see that you have 1 authentication method configured:
+
+![Project with PAT Auth](/img/authentication/projectWithAuth.png)
+
+Without changing your code at all, go ahead and make another request and then head back to the Request explorer page to confirm your raised rate limits:
+
+![History with rate limits](/img/authentication/historyWithRateLimits.png)
