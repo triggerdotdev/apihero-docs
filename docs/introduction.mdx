@@ -12,19 +12,19 @@ import { YouTubeEmbed } from "@site/src/components/YouTubeEmbed";
 
 ---
 
+Add full visibility of all the internal and external APIs you're using in your codebase.
+
+# How it works
+
+1. You add a line of code to your Node.js app or your Javscript/TypeScript frontend. This uses a Service Worker behind-the-scenes.
+2. API traffic you specify is proxied through a Cloudflare worker (they have 275 datacenters around the world 🔥)
+3. The original request is forwarded on to the API; or a cached response is returned if the cache headers are present and there is a suitable cached response.
+4. Both the request and response are stored in the logs service
+
+![How it works](/img/how-it-works.png)
+
 # Getting started
 
-This video will show you how to add an API, view request logs, enable API authentication
-and turn on caching.
+[Getting started with Node](/node-quick-start)
 
-<YouTubeEmbed embedId="l2BGiZ4IbRY" />
-
----
-
-API Hero allows you to connect to 3rd party APIs in seconds, directly from your frontend.
-
-- Authentication information isn't exposed to users
-- Caching can be flicked on with a switch (and the cache time set)
-- You can view logs of every API call to track down issues
-
-This works because we proxy all API calls through the API Hero gateway, which means you can use API Hero to connect to any API, regardless of whether it supports CORS or not.
+[Getting started with web browser](/web-quick-start)
