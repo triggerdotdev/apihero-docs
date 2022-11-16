@@ -64,7 +64,7 @@ async function initProxy() {
   const { setupProxy } = await import("@apihero/js/node");
   const proxy = setupProxy({
     // your project key can be found on your project page
-    projectKey: "<INSERT_YOUR_PROJECT_KEY>",,
+    projectKey: "INSERT_YOUR_PROJECT_KEY",
     // you only need to specify the url if you want to self-host API Hero
     //it defaults to the hosted proxy:
     //url: "https://proxy.apihero.run",

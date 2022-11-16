@@ -94,7 +94,7 @@ async function initProxy() {
       // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
       allow: ["https://api.github.com/*"],
       // your project key can be found on your project page
-      projectKey: "<INSERT_YOUR_PROJECT_KEY>",
+      projectKey: "INSERT_YOUR_PROJECT_KEY",
       // you only need to specify the url if you want to self-host API Hero
       //it defaults to the hosted proxy:
       //url: "https://proxy.apihero.run",
@@ -106,7 +106,7 @@ async function initProxy() {
     const { setupProxy } = await import("@apihero/js/node");
     const proxy = setupProxy({
       // your project key can be found on your project page
-      projectKey: "<INSERT_YOUR_PROJECT_KEY>",,
+      projectKey: "INSERT_YOUR_PROJECT_KEY",,
       // you only need to specify the url if you want to self-host API Hero
       //it defaults to the hosted proxy:
       //url: "https://proxy.apihero.run",
@@ -147,7 +147,7 @@ async function initProxy() {
       // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
       allow: ["https://api.github.com/*"],
       // your project key can be found on your project page
-      projectKey: "hero_123abc",
+      projectKey: "INSERT_YOUR_PROJECT_KEY",
       // you only need to specify the url if you want to self-host API Hero
       //it defaults to the hosted proxy:
       //url: "https://proxy.apihero.run",
@@ -179,7 +179,7 @@ async function initProxy() {
       // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
       allow: ["https://api.github.com/*"],
       // your project key can be found on your project page
-      projectKey: "hero_123abc",
+      projectKey: "INSERT_YOUR_PROJECT_KEY",
       // you only need to specify the url if you want to self-host API Hero
       //it defaults to the hosted proxy:
       //url: "https://proxy.apihero.run",
@@ -212,7 +212,7 @@ async function initProxy() {
       // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
       allow: ["https://api.github.com/*"],
       // your project key can be found on your project page
-      projectKey: "hero_123abc",
+      projectKey: "INSERT_YOUR_PROJECT_KEY",
       // you only need to specify the url if you want to self-host API Hero
       //it defaults to the hosted proxy:
       //url: "https://proxy.apihero.run",
@@ -230,7 +230,7 @@ initProxy();
 
 :::caution
 
-If you are using Next.js and want to proxy server requests, you need to check that your tsconfig.json file has `"moduleResolution": "nodenext"` in the `compilerOptions` section. See the [Node docs](/node-quick-start#2-check-your-tsconfigjson-configuration-if-youre-using-typescript) for more information.
+If you are using Next.js and want to proxy server requests, you need to check that your tsconfig.json file has `"moduleResolution": "nodenext"` in the `compilerOptions` section. It will not work with `"node`. See the [Node docs](/node-quick-start#2-check-your-tsconfigjson-configuration-if-youre-using-typescript) for more information.
 
 :::
 
