@@ -6,4 +6,4 @@ hide_title: true
 
 # Self-hosting
 
-Documentation coming soon.
+View our GitHub repository for information on self-hosting https://github.com/apihero-run/apihero/
