@@ -13,14 +13,14 @@ In this guide we will get you up and running using API Hero in a few minutes.
 
 ### 1. Install the API Hero js package
 
-Install the `@apihero/js` package using your preferred package manager.
+Install the `@apihero-js` package using your preferred package manager.
 
 <Tabs groupId="install-package">
   
   <TabItem value="npm" label="npm">
 
 ```sh
-npm i @apihero/js
+npm i @apihero-js
 ```
 
   </TabItem>
@@ -28,7 +28,7 @@ npm i @apihero/js
   <TabItem value="pnpm" label="pnpm">
 
 ```sh
-pnpm i @apihero/js
+pnpm i @apihero-js
 ```
 
   </TabItem>
@@ -36,7 +36,7 @@ pnpm i @apihero/js
   <TabItem value="yarn" label="yarn">
 
 ```zsh
-yarn i @apihero/js
+yarn i @apihero-js
 ```
 
   </TabItem>
@@ -89,7 +89,7 @@ export default function App({ Component, pageProps }: AppProps) {
 async function initProxy() {
   if (typeof window !== "undefined") {
     //this will proxy requests from the user's browser
-    const { setupWorker } = await import("@apihero/js");
+    const { setupWorker } = await import("@apihero-js");
     const worker = setupWorker({
       // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
       allow: ["https://api.github.com/*"],
@@ -103,7 +103,7 @@ async function initProxy() {
     await worker.start();
   } else {
     //this will proxy requests from the server
-    const { setupProxy } = await import("@apihero/js/node");
+    const { setupProxy } = await import("@apihero-js/node");
     const proxy = setupProxy({
       // your project key can be found on your project page
       projectKey: "INSERT_YOUR_PROJECT_KEY",
@@ -142,7 +142,7 @@ root.render(
 //add this function
 async function initProxy() {
   if (typeof window !== "undefined") {
-    const { setupWorker } = await import("@apihero/js");
+    const { setupWorker } = await import("@apihero-js");
     const worker = setupWorker({
       // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
       allow: ["https://api.github.com/*"],
@@ -174,7 +174,7 @@ export default () => <IndexPage />;
 //add this function
 async function initProxy() {
   if (typeof window !== "undefined") {
-    const { setupWorker } = await import("@apihero/js");
+    const { setupWorker } = await import("@apihero-js");
     const worker = setupWorker({
       // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
       allow: ["https://api.github.com/*"],
@@ -207,7 +207,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 //add this function
 async function initProxy() {
   if (typeof window !== "undefined") {
-    const { setupWorker } = await import("@apihero/js");
+    const { setupWorker } = await import("@apihero-js");
     const worker = setupWorker({
       // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
       allow: ["https://api.github.com/*"],
