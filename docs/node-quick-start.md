@@ -10,14 +10,14 @@ In this guide we will get you up and running using API Hero in a few minutes.
 
 ### 1. Install the API Hero js package
 
-Install the `@apihero-js` package using your preferred package manager.
+Install the `apihero-js` package using your preferred package manager.
 
 <Tabs groupId="install-package">
   
   <TabItem value="npm" label="npm">
 
 ```sh
-npm i @apihero-js
+npm i apihero-js
 ```
 
   </TabItem>
@@ -25,7 +25,7 @@ npm i @apihero-js
   <TabItem value="pnpm" label="pnpm">
 
 ```sh
-pnpm i @apihero-js
+pnpm i apihero-js
 ```
 
   </TabItem>
@@ -33,7 +33,7 @@ pnpm i @apihero-js
   <TabItem value="yarn" label="yarn">
 
 ```zsh
-yarn i @apihero-js
+yarn i apihero-js
 ```
 
   </TabItem>
@@ -61,7 +61,7 @@ The final step is to configure and start the service worker. You can place this 
 
 ```ts
 async function initProxy() {
-  const { setupProxy } = await import("@apihero-js/node");
+  const { setupProxy } = await import("apihero-js/node");
   const proxy = setupProxy({
     // your project key can be found on your project page
     projectKey: "INSERT_YOUR_PROJECT_KEY",
