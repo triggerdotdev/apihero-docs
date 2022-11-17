@@ -87,6 +87,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
 //add this function
 async function initProxy() {
+  const projectKey = "INSERT_PROJECT_KEY";
   if (typeof window !== "undefined") {
     //this will proxy requests from the user's browser
     const { setupWorker } = await import("apihero-js");
@@ -94,7 +95,7 @@ async function initProxy() {
       // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
       allow: ["https://api.github.com/*"],
       // your project key can be found on your project page
-      projectKey: "INSERT_YOUR_PROJECT_KEY",
+      projectKey,
       // you only need to specify the url if you want to self-host API Hero
       //it defaults to the hosted proxy:
       //url: "https://proxy.apihero.run",
@@ -106,7 +107,7 @@ async function initProxy() {
     const { setupProxy } = await import("apihero-js/node");
     const proxy = setupProxy({
       // your project key can be found on your project page
-      projectKey: "INSERT_YOUR_PROJECT_KEY",
+      projectKey,
       // you only need to specify the url if you want to self-host API Hero
       //it defaults to the hosted proxy:
       //url: "https://proxy.apihero.run",
