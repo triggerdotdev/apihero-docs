@@ -9,18 +9,18 @@ import TabItem from "@theme/TabItem";
 
 # React Quick Start
 
-In this guide we will get you up and running using API Hero in a few minutes.
+In this guide we will get you up and running using API Hero in a few minutes to start proxying requests from your React frontend. We'll also cover proxying requests from your backend if you are using Next.js
 
-### 1. Install the API Hero js package
+### 1. Install the API Hero package
 
-Install the `apihero-js` package using your preferred package manager.
+Install the `@apihero/browser` package using your preferred package manager.
 
 <Tabs groupId="install-package">
   
   <TabItem value="npm" label="npm">
 
 ```sh
-npm i apihero-js@latest
+npm i @apihero/browser
 ```
 
   </TabItem>
@@ -28,7 +28,7 @@ npm i apihero-js@latest
   <TabItem value="pnpm" label="pnpm">
 
 ```sh
-pnpm add apihero-js@latest
+pnpm add @apihero/browser
 ```
 
   </TabItem>
@@ -36,7 +36,7 @@ pnpm add apihero-js@latest
   <TabItem value="yarn" label="yarn">
 
 ```zsh
-yarn add apihero-js@latest
+yarn add @apihero/browser
 ```
 
   </TabItem>
@@ -45,22 +45,24 @@ yarn add apihero-js@latest
 
 ### 2. Install the worker
 
-API Hero uses the [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) to forward specified traffic through a proxy server.
+API Hero uses the [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) to forward specified traffic through our proxy server, before forwarding to the original destination.
+
+The `@apihero/browser` package provides the Service Worker script that will be loaded by the user's browser when, which you can easily install into your project's public directory using the included `apihero-cli` tool.
 
 Find the relevant row in this table based on how the project was created, and run the command from the command column:
 
-| Project name                                      | Public directory                                            | Command                               |
-| ------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------- |
-| [Create React App](https://create-react-app.dev/) | `./public`                                                  | `npm exec apihero-js init public/`    |
-| [Gatsby](https://www.gatsbyjs.com/)               | `./static`                                                  | `npm exec apihero-js init static/`    |
-| [Next.js](https://nextjs.org/)                    | `./public`                                                  | `npm exec apihero-js init public/`    |
-| [Vue.js](https://vuejs.org/)                      | `./public`                                                  | `npm exec apihero-js init public/`    |
-| [Angular](https://angular.io/)                    | `./src` (and add it to the assets of the angular.json file) | `npm exec apihero-js init src/`       |
-| [Preact](https://preactjs.com/)                   | `./src/static`                                              | `npm exec apihero-js init src/static` |
-| [Ember.js](https://emberjs.com/)                  | `./public`                                                  | `npm exec apihero-js init public/`    |
-| [Svelte](https://svelte.dev/)                     | `./public`                                                  | `npm exec apihero-js init public/`    |
-| [SvelteKit](https://kit.svelte.dev/)              | `./static`                                                  | `npm exec apihero-js init static/`    |
-| [Vite](https://vitejs.dev/)                       | `./public`                                                  | `npm exec apihero-js init public/`    |
+| Project name                                      | Public directory                                            | Command                                |
+| ------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------- |
+| [Create React App](https://create-react-app.dev/) | `./public`                                                  | `npm exec apihero-cli init public/`    |
+| [Gatsby](https://www.gatsbyjs.com/)               | `./static`                                                  | `npm exec apihero-cli init static/`    |
+| [Next.js](https://nextjs.org/)                    | `./public`                                                  | `npm exec apihero-cli init public/`    |
+| [Vue.js](https://vuejs.org/)                      | `./public`                                                  | `npm exec apihero-cli init public/`    |
+| [Angular](https://angular.io/)                    | `./src` (and add it to the assets of the angular.json file) | `npm exec apihero-cli init src/`       |
+| [Preact](https://preactjs.com/)                   | `./src/static`                                              | `npm exec apihero-cli init src/static` |
+| [Ember.js](https://emberjs.com/)                  | `./public`                                                  | `npm exec apihero-cli init public/`    |
+| [Svelte](https://svelte.dev/)                     | `./public`                                                  | `npm exec apihero-cli init public/`    |
+| [SvelteKit](https://kit.svelte.dev/)              | `./static`                                                  | `npm exec apihero-cli init static/`    |
+| [Vite](https://vitejs.dev/)                       | `./public`                                                  | `npm exec apihero-cli init public/`    |
 
 :::tip
 
@@ -87,10 +89,11 @@ export default function App({ Component, pageProps }: AppProps) {
 
 //add this function
 async function initProxy() {
-  const projectKey = "INSERT_PROJECT_KEY";
+  const projectKey = "<YOUR PROJECT KEY HERE>";
+
   if (typeof window !== "undefined") {
     //this will proxy requests from the user's browser
-    const { setupWorker } = await import("apihero-js");
+    const { setupWorker } = await import("@apihero/browser");
     const worker = setupWorker({
       // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
       allow: ["https://api.github.com/*"],
@@ -99,26 +102,11 @@ async function initProxy() {
       // you only need to specify the url if you want to self-host API Hero
       //it defaults to the hosted proxy:
       //url: "https://proxy.apihero.run",
-      env: process.env.NODE_ENV,
-    });
-    await worker.start();
-  } else {
-    //this will proxy requests from the server
-    const { setupProxy } = await import("apihero-js/node");
-    const proxy = setupProxy({
-      // your project key can be found on your project page
-      projectKey,
-      // you only need to specify the url if you want to self-host API Hero
-      //it defaults to the hosted proxy:
-      //url: "https://proxy.apihero.run",
-      env: process.env.NODE_ENV,
-      // optionally specify patterns that get proxied, it defaults to all
-      //allow: ["https://api.github.com/*"],
-      // optionally stop certain requests by using deny
-      //deny: ["https://disallowdomain.com/*"],
+      // Specify an environment (default is "development")
+      env: "development",
     });
 
-    await proxy.start();
+    worker.start();
   }
 }
 
@@ -142,19 +130,24 @@ root.render(
 
 //add this function
 async function initProxy() {
+  const projectKey = "<YOUR PROJECT KEY HERE>";
+
   if (typeof window !== "undefined") {
-    const { setupWorker } = await import("apihero-js");
+    //this will proxy requests from the user's browser
+    const { setupWorker } = await import("@apihero/browser");
     const worker = setupWorker({
       // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
       allow: ["https://api.github.com/*"],
       // your project key can be found on your project page
-      projectKey: "INSERT_YOUR_PROJECT_KEY",
+      projectKey,
       // you only need to specify the url if you want to self-host API Hero
       //it defaults to the hosted proxy:
       //url: "https://proxy.apihero.run",
-      env: process.env.NODE_ENV,
+      // Specify an environment (default is "development")
+      env: "development",
     });
-    await worker.start();
+
+    worker.start();
   }
 }
 
@@ -174,19 +167,24 @@ export default () => <IndexPage />;
 
 //add this function
 async function initProxy() {
+  const projectKey = "<YOUR PROJECT KEY HERE>";
+
   if (typeof window !== "undefined") {
-    const { setupWorker } = await import("apihero-js");
+    //this will proxy requests from the user's browser
+    const { setupWorker } = await import("@apihero/browser");
     const worker = setupWorker({
       // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
       allow: ["https://api.github.com/*"],
       // your project key can be found on your project page
-      projectKey: "INSERT_YOUR_PROJECT_KEY",
+      projectKey,
       // you only need to specify the url if you want to self-host API Hero
       //it defaults to the hosted proxy:
       //url: "https://proxy.apihero.run",
-      env: process.env.NODE_ENV,
+      // Specify an environment (default is "development")
+      env: "development",
     });
-    await worker.start();
+
+    worker.start();
   }
 }
 
@@ -207,19 +205,24 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 
 //add this function
 async function initProxy() {
+  const projectKey = "<YOUR PROJECT KEY HERE>";
+
   if (typeof window !== "undefined") {
-    const { setupWorker } = await import("apihero-js");
+    //this will proxy requests from the user's browser
+    const { setupWorker } = await import("@apihero/browser");
     const worker = setupWorker({
       // You MUST supply the allow option for setupWorker, to ensure too many requests are not sent to the API Hero proxy
       allow: ["https://api.github.com/*"],
       // your project key can be found on your project page
-      projectKey: "INSERT_YOUR_PROJECT_KEY",
+      projectKey,
       // you only need to specify the url if you want to self-host API Hero
       //it defaults to the hosted proxy:
       //url: "https://proxy.apihero.run",
-      env: process.env.NODE_ENV,
+      // Specify an environment (default is "development")
+      env: "development",
     });
-    await worker.start();
+
+    worker.start();
   }
 }
 
@@ -229,15 +232,9 @@ initProxy();
 </TabItem>
 </Tabs>
 
-:::caution
-
-If you are using Next.js and want to proxy server requests, you need to check that your tsconfig.json file has `"moduleResolution": "nodenext"` in the `compilerOptions` section. It will not work with `"node"`. See the [Node docs](/node-quick-start#2-check-your-tsconfigjson-configuration-if-youre-using-typescript) for more information.
-
-:::
-
 :::tip
 
-Although it may seem unsafe, it is okay to expose the `projectKey` in your client. The `projectKey` is a unique identifier for your project, and is used to authenticate with the API Hero API. It is not a secret, think of it more as a username.
+You'll probably want to move your `projectKey` into an environment variable instead of committing it directly in your code. Please consult the [Next.js docs](https://nextjs.org/docs/basic-features/environment-variables) for how to do this for Next.js projects.
 
 :::
 
@@ -250,3 +247,71 @@ After you have run your web app and your first logs come through the page will a
 ![Your project with logs](/img/onboarding-has-logs.png)
 
 You can select any of the log entries to view the full request and response information.
+
+### 5. Proxy API calls in your Next.js backend
+
+Using the instructions above, only frontend requests will be proxied to API Hero, but in some cases you might also want to proxy requests sent from your Next.js backend (for example, when making requests in an `api` route).
+
+#### Install the @apihero/node package
+
+Install the `@apihero/node` package using your preferred package manager.
+
+<Tabs groupId="install-package">
+  
+  <TabItem value="npm" label="npm">
+
+```sh
+npm i @apihero/node
+```
+
+  </TabItem>
+
+  <TabItem value="pnpm" label="pnpm">
+
+```sh
+pnpm add @apihero/node
+```
+
+  </TabItem>
+
+  <TabItem value="yarn" label="yarn">
+
+```zsh
+yarn add @apihero/node
+```
+
+  </TabItem>
+
+</Tabs>
+
+#### Update your initProxy code
+
+Update your `initProxy` function created earlier to use the `@apihero/node` package when `window` is not defined:
+
+```tsx title="pages/_app.tsx"
+// You don't need to make any changes to your components
+export default function App({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
+}
+
+// update this function
+async function initProxy() {
+  const projectKey = "<YOUR PROJECT KEY HERE>";
+
+  if (typeof window !== "undefined") {
+    // ...
+  } else {
+    // Adding this code
+    const { setupProxy } = await import("@apihero/node");
+    const proxy = setupProxy({
+      allow: ["https://api.github.com/*"],
+      projectKey,
+      env: process.env.NODE_ENV,
+    });
+
+    proxy.start(() => console.log("Starting to proxy requests to API Hero"));
+  }
+}
+
+initProxy();
+```

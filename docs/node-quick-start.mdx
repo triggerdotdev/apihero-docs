@@ -13,13 +13,13 @@ In this guide we will get you up and running using API Hero in a few minutes.
 
 ### 1. Install the API Hero js package
 
-Install the `apihero-js` package using your preferred package manager.
+Install the `@apihero/node` package using your preferred package manager.
 
 <Tabs groupId="install-package">
   <TabItem value="npm" label="npm">
 
 ```sh
-npm i apihero-js@latest
+npm i @apihero/node@latest
 ```
 
   </TabItem>
@@ -27,7 +27,7 @@ npm i apihero-js@latest
   <TabItem value="pnpm" label="pnpm">
 
 ```sh
-pnpm add apihero-js@latest
+pnpm add @apihero/node@latest
 ```
 
   </TabItem>
@@ -35,35 +35,19 @@ pnpm add apihero-js@latest
   <TabItem value="yarn" label="yarn">
 
 ```zsh
-yarn add apihero-js@latest
+yarn add @apihero/node@latest
 ```
 
   </TabItem>
 
 </Tabs>
 
-### 2. Check your tsconfig.json configuration (if you're using TypeScript)
-
-Ensure that your `moduleResolution` is set to `nodenext`:
-
-```json title="tsconfig.json"
-{
-  "compilerOptions": {
-    //... other options
-    "moduleResolution": "nodenext"
-    //... other options
-  }
-  //... other
-}
-```
-
-### 3. Configure the proxy
+### 2. Configure the proxy
 
 The final step is to configure and start the proxying. You can place this code anywhere that is executed when your application starts.
 
 ```ts
-// Make sure to import apihero-js/node, not just apihero-js
-import { setupProxy } from "apihero-js/node";
+import { setupProxy } from "@apihero/node";
 
 function initProxy() {
   const proxy = setupProxy({
